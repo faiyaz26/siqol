@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SIQOL App",
-  description: "SQL Database Management Interface",
+  description: "SQL Database Management App",
 };
 
 export default function RootLayout({

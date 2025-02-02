@@ -1,35 +1,17 @@
 "use client"
 
-import { FaDatabase } from 'react-icons/fa';
-import { ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
-import { ResizablePanelGroup } from "@/components/ui/resizable"
-import { WorkspaceBar } from '@/components/WorkspaceBar';
-import { Explorer } from '@/components/Explorer';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { WorkspaceBar } from "@/components/WorkspaceBar"
 
 export default function Home() {
   return (
-    <div className="flex h-screen">
-      <WorkspaceBar />
-
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel 
-          defaultSize={20} 
-          minSize={15}
-          maxSize={40}
-          className="bg-background"
-        >
-          <Explorer />
-        </ResizablePanel>
-
-        <ResizableHandle withHandle />
-
-        <ResizablePanel defaultSize={80}>
-          <main className="h-full p-4">
-            <h1>Main Content</h1>
-          </main>
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </div>
+    <SidebarProvider>
+      <div className="flex h-screen">
+        <WorkspaceBar />
+        <main className="flex-1">
+          <h1>Main Content</h1>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }
