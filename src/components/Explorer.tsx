@@ -1,31 +1,60 @@
 "use client"
 
-import { ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
-import { ResizablePanelGroup } from "@/components/ui/resizable"
+import { Tree, type TreeDataItem } from "@/components/ui/tree"
+import { Table2, Database, Key, Columns } from "lucide-react"
+
+const data: TreeDataItem[] = [
+  {
+    id: "tables",
+    name: "Tables",
+    icon: <Database className="h-4 w-4" />,
+    children: [
+      {
+        id: "users",
+        name: "users",
+        icon: <Table2 className="h-4 w-4" />,
+        children: [
+          {
+            id: "users-columns",
+            name: "Columns",
+            icon: <Columns className="h-4 w-4" />,
+            children: [
+              { id: "id", name: "id (int)" },
+              { id: "name", name: "name (varchar)" },
+              { id: "email", name: "email (varchar)" }
+            ]
+          },
+          {
+            id: "users-indexes",
+            name: "Indexes",
+            icon: <Key className="h-4 w-4" />,
+            children: [
+              { id: "pk_users", name: "PRIMARY (id)" },
+              { id: "idx_email", name: "idx_email (email)" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 
 export function Explorer() {
+  const handleSelectChange = (item: TreeDataItem) => {
+    console.log("Selected:", item.name)
+  }
+
   return (
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel 
-        defaultSize={100}
-        minSize={40}
-        maxSize={100}
-        className="bg-muted"
-      >
-        <div className="h-full p-4">
-          <h2 className="font-semibold mb-4">Explorer</h2>
-          {/* Explorer content will go here */}
-        </div>
-      </ResizablePanel>
-
-      <ResizableHandle withHandle />
-
-      <ResizablePanel defaultSize={80}>
-        <div className="h-full p-4">
-          <h2 className="font-semibold mb-4">Main Content</h2>
-          {/* Main content will go here */}
-        </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+    <div className="h-full p-4">
+      <div className="pb-4 border-b">
+        <h2 className="font-semibold text-foreground">Entities</h2>
+      </div>
+      <div className="pt-4">
+        <Tree 
+          data={data}
+          onSelectChange={handleSelectChange}
+        />
+      </div>
+    </div>
   )
 }
